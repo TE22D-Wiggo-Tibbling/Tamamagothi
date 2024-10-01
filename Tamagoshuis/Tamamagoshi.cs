@@ -2,19 +2,28 @@ public class Tamamagoshi
 {
     private int hunger;
     private int bredom;
-    private List<string> words = new();
-    private Random generator;
+    private List<string> words = [];
     public string Name;
-    private bool isAlive;
+    private bool isAlive = true;
 
     public void Feed()
     {
         hunger -= 10;
     }
 
+    private void ReduceBoredom()
+    {
+        bredom -= 2;
+    }
     public void Hi()
     {
-        System.Console.WriteLine(words[generator.Next(words.Count)]);
+        if(words.Count>0){
+        Console.WriteLine(words[Random.Shared.Next(words.Count)]);
+        ReduceBoredom();
+        }
+        else{
+            Console.WriteLine("Lär den ett ord först");
+        }
     }
 
     public void Tick()
@@ -29,6 +38,7 @@ public class Tamamagoshi
 
     public void PrintStats()
     {
+        System.Console.WriteLine($"Name: {Name}");
         System.Console.WriteLine($"hunger: {hunger} boredome: {bredom}");
     }
 
@@ -37,10 +47,6 @@ public class Tamamagoshi
         return isAlive;
     }
 
-    private void ReduceBoredom()
-    {
-        bredom -= 2;
-    }
 
     public void Teach(string word)
     {
